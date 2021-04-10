@@ -1,12 +1,16 @@
-import client from "../../client"
+import { Resolvers } from "../../types"
+import { protectResolver } from "../user.utils"
 
-export default {
+const resolvers: Resolvers = {
 	Query: {
-		seeProfile: (_, { username }) =>
+		seeProfile: protectResolver((_, { username }, { client }) =>
 			client.user.findUnique({
 				where: {
 					username,
 				},
-			}),
+			})
+		),
 	},
 }
+
+export default resolvers

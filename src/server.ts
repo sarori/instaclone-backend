@@ -1,7 +1,7 @@
 require("dotenv").config()
 import { ApolloServer } from "apollo-server"
 import schema from "./schema"
-import { getUser, protectResolver } from "./users/user.utils"
+import { getUser, protectResolver } from "./src/users/user.utils"
 
 const server = new ApolloServer({
 	schema,

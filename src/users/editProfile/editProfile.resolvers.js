@@ -8,7 +8,9 @@ export default {
 			{ firstName, lastName, username, email, password: newPassword, bio, avatar },
 			{ loggedInUser, protectResolver }
 		) => {
-			console.log(avatar)
+			const { filename, createReadStream } = await avatar
+			const stream = createReadStream()
+			console.log(stream)
 			protectResolver(loggedInUser)
 			let uglyPassword = null
 			if (newPassword) {

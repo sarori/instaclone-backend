@@ -1,3 +1,4 @@
+import { createWriteStream } from "fs"
 import bcrypt from "bcrypt"
 import client from "../../client"
 
@@ -9,8 +10,9 @@ export default {
 			{ loggedInUser, protectResolver }
 		) => {
 			const { filename, createReadStream } = await avatar
-			const stream = createReadStream()
-			console.log(stream)
+			const readStream = createReadStream()
+			const writeStream = createWriteStream(process.cwd() + "/uploads/" + filename)
+			readStream.pipe(writeStream)
 			protectResolver(loggedInUser)
 			let uglyPassword = null
 			if (newPassword) {

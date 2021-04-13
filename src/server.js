@@ -6,7 +6,7 @@ import client from "./client"
 import schema, { typeDefs, resolvers } from "./schema"
 import { getUser, protectResolver } from "./users/user.utils"
 
-const server = new ApolloServer({
+const apollo = new ApolloServer({
 	resolvers,
 	typeDefs,
 	context: async ({ req }) => {
@@ -20,7 +20,8 @@ const server = new ApolloServer({
 
 const app = express()
 app.use(logger("tiny"))
-server.applyMiddleware({ app })
+app.use("/static", express.static("uploads"))
+apollo.applyMiddleware({ app })
 
 const PORT = process.env.PORT
 app.listen({ port: PORT }, () => {

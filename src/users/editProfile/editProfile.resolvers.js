@@ -10,10 +10,15 @@ export default {
 			{ loggedInUser, protectResolver }
 		) => {
 			const { filename, createReadStream } = await avatar
-			const readStream = createReadStream()
-			const writeStream = createWriteStream(process.cwd() + "/uploads/" + filename)
-			readStream.pipe(writeStream)
-			protectResolver(loggedInUser)
+			let avatarUrl = null
+			if (avatar) {
+				const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`
+				const readStream = createReadStream()
+				const writeStream = createWriteStream(process.cwd() + "/uploads/" + newFilename)
+				readStream.pipe(writeStream)
+				protectResolver(loggedInUser)
+				avatarUrl = `http://localhost:4000/static/${newFilename}`
+			}
 			let uglyPassword = null
 			if (newPassword) {
 				uglyPassword = await bcrypt.hash(newPassword, 10)
@@ -29,6 +34,7 @@ export default {
 					email,
 					bio,
 					...(uglyPassword && { password: uglyPassword }),
+					...(avatarUrl && { avatar: avatarUrl }),
 				},
 			})
 			if (updatedUser.id) {

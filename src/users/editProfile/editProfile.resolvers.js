@@ -5,9 +5,10 @@ export default {
 	Mutation: {
 		editProfile: async (
 			_,
-			{ firstName, lastName, username, email, password: newPassword, bio },
+			{ firstName, lastName, username, email, password: newPassword, bio, avatar },
 			{ loggedInUser, protectResolver }
 		) => {
+			console.log(avatar)
 			protectResolver(loggedInUser)
 			let uglyPassword = null
 			if (newPassword) {

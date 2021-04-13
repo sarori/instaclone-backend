@@ -5,7 +5,7 @@ export default {
 	Mutation: {
 		editProfile: async (
 			_,
-			{ firstName, lastName, username, email, password: newPassword },
+			{ firstName, lastName, username, email, password: newPassword, bio },
 			{ loggedInUser, protectResolver }
 		) => {
 			protectResolver(loggedInUser)
@@ -22,6 +22,7 @@ export default {
 					lastName,
 					username,
 					email,
+					bio,
 					...(uglyPassword && { password: uglyPassword }),
 				},
 			})

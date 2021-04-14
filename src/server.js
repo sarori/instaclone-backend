@@ -2,9 +2,8 @@ require("dotenv").config()
 import { ApolloServer } from "apollo-server-express"
 import express from "express"
 import logger from "morgan"
-import client from "./client"
-import schema, { typeDefs, resolvers } from "./schema"
-import { getUser, protectResolver } from "./users/user.utils"
+import { typeDefs, resolvers } from "./schema"
+import { getUser, protectedResolver } from "./users/user.utils"
 
 const apollo = new ApolloServer({
 	resolvers,
@@ -12,7 +11,7 @@ const apollo = new ApolloServer({
 	context: async ({ req }) => {
 		return {
 			loggedInUser: await getUser(req.headers.token),
-			protectResolver,
+			protectedResolver,
 			client,
 		}
 	},

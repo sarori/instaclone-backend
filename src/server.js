@@ -2,6 +2,7 @@ require("dotenv").config()
 import { ApolloServer } from "apollo-server-express"
 import express from "express"
 import logger from "morgan"
+import client from "./client"
 import { typeDefs, resolvers } from "./schema"
 import { getUser, protectedResolver } from "./users/user.utils"
 

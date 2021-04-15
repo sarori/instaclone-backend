@@ -20,7 +20,7 @@ model User {
   bio String?
   avatar String?
   followers User[] @relation("FollowRelation", references:[id])
-  followering User[] @relation("FollowRelation", references:[id])
+  following User[] @relation("FollowRelation", references:[id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -1,26 +1,39 @@
 import client from "../../client"
+import { processHashtags } from "../photos.utils"
 
 export default {
 	Mutation: {
 		editPhoto: async (_, { id, caption }, { loggedInUser, protectedResolver }) => {
-			const ok = await client.photo.findFirst({
+			const oldPhoto = await client.photo.findFirst({
 				where: {
 					id,
 					userId: loggedInUser.id,
 				},
+				include: {
+					hashtags: {
+						select: {
+							hashtag: true,
+						},
+					},
+				},
 			})
-			if (!ok) {
+			if (!oldPhoto) {
 				return {
-					ok: false,
+					oldPhoto: false,
 					error: "Photo not found",
 				}
 			}
+			console.log(oldPhoto.hashtags)
 			const photo = await client.photo.update({
 				where: {
 					id,
 				},
 				data: {
 					caption,
+					hashtags: {
+						disconnect: oldPhoto.hashtags,
+						connectOrCreate: processHashtags(caption),
+					},
 				},
 			})
 			console.log(photo)

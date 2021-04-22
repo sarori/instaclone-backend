@@ -1,4 +1,5 @@
 import client from "../../client"
+import { processHashtags } from "../photos.utils"
 
 export default {
 	Mutation: {
@@ -6,12 +7,7 @@ export default {
 			let hashtagObj = []
 			if (caption) {
 				//parse caption
-				const hashtags = caption.match(/#[\w]+/g)
-				hashtagObj = hashtags.map((hashtag) => ({
-					where: { hashtag },
-					create: { hashtag },
-				}))
-				console.log(hashtagObj)
+				hashtagObj = processHashtags(caption)
 				protectedResolver(loggedInUser)
 				//get or create Hashtags
 			}

@@ -12,6 +12,7 @@ export default {
 					create: { hashtag },
 				}))
 				console.log(hashtagObj)
+				protectedResolver(loggedInUser)
 				//get or create Hashtags
 			}
 			//save the photo wtih the Parsed hashtags

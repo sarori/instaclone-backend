@@ -1,7 +1,7 @@
 import { createWriteStream } from "fs"
 import bcrypt from "bcrypt"
 import client from "../../client"
-import { uploadPhoto } from "../../shared/shared.utils"
+import { uploadToS3 } from "../../shared/shared.utils"
 
 export default {
 	Mutation: {
@@ -13,7 +13,7 @@ export default {
 			const { filename, createReadStream } = await avatar
 			let avatarUrl = null
 			if (avatar) {
-				avatarUrl = await uploadPhoto(avatar, loggedInUser.id)
+				avatarUrl = await uploadToS3(avatar, loggedInUser.id, "avatars")
 				//file upload on Server
 				// const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`
 				// const readStream = createReadStream()

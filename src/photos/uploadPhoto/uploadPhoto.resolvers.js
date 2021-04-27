@@ -1,5 +1,6 @@
 import client from "../../client"
 import { processHashtags } from "../photos.utils"
+import { uploadToS3 } from "../../shared/shared.utils"
 
 export default {
 	Mutation: {
@@ -11,11 +12,13 @@ export default {
 				protectedResolver(loggedInUser)
 				//get or create Hashtags
 			}
+
+			const fileUrl = await uploadToS3(file, loggedInUser.id)
 			//save the photo wtih the Parsed hashtags
 			//add the photo to the hashtags
 			return client.photo.create({
 				data: {
-					file,
+					file: fileUrl,
 					caption,
 					user: {
 						connect: {

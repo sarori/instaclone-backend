@@ -36,7 +36,9 @@ export default {
 					read: true,
 				},
 			})
-			return true
+			return {
+				ok: true,
+			}
 		},
 	},
 }

@@ -7,7 +7,7 @@ export default {
 			const room = await client.room.findFirst({
 				where: {
 					id,
-					user: {
+					users: {
 						some: {
 							id: loggedInUser.id,
 						},

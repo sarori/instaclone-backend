@@ -12,8 +12,7 @@ export default {
 				protectedResolver(loggedInUser)
 				//get or create Hashtags
 			}
-
-			const fileUrl = await uploadToS3(file, loggedInUser.id)
+			const fileUrl = await uploadToS3(file, loggedInUser.id, "uploads")
 			//save the photo wtih the Parsed hashtags
 			//add the photo to the hashtags
 			return client.photo.create({

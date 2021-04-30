@@ -11,14 +11,32 @@ import pubsub from "./pubsub"
 const apollo = new ApolloServer({
 	resolvers,
 	typeDefs,
-	context: async ({ req }) => {
-		if (req) {
+	context: async (ctx) => {
+		if (ctx.req) {
 			return {
-				loggedInUser: await getUser(req.headers.token),
+				loggedInUser: await getUser(ctx.req.headers.token),
 				protectedResolver,
 				client,
 			}
+		} else {
+			const {
+				connection: { context },
+			} = ctx
+			return {
+				loggedInUser: context.loggedInUser,
+			}
 		}
+	},
+	subscriptions: {
+		onConnect: async ({ token }) => {
+			if (!token) {
+				throw new Error("You can't listen")
+			}
+			const loggedInUser = await getUser(token)
+			return {
+				loggedInUser,
+			}
+		},
 	},
 })
 

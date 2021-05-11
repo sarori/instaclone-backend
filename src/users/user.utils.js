@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken"
 import client from "../client"
 
 export const getUser = async (token) => {
+	console.log(token)
 	try {
 		if (!token) {
 			return null

@@ -21,8 +21,8 @@ model User {
   avatar String?
   photos Photo[]
   likes Like[]
-  followers User[] @relation("FollowRelation", references:[id])
-  following User[] @relation("FollowRelation", references:[id])
+  followers User[]    @relation("FollowRelation", references: [id])
+  following User[]    @relation("FollowRelation", references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   comments Comment[] 

@@ -11,18 +11,20 @@ export default {
 					error: "That user does not exist.",
 				}
 			}
-			await client.user.update({
+			console.log("ok", ok)
+			const temp = await client.user.update({
 				where: {
 					id: loggedInUser.id,
 				},
 				data: {
 					following: {
 						connect: {
-							username,
+							id: ok.id,
 						},
 					},
 				},
 			})
+			console.log(temp)
 			return {
 				ok: true,
 			}

@@ -21,6 +21,7 @@ export default {
 					error: "Incorrect password.",
 				}
 			}
+
 			//Everything is fine,issue a token and send it to the user
 			const token = await jwt.sign({ id: user.id }, process.env.SECRET_KEY)
 			return {

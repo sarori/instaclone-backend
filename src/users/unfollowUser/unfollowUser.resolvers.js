@@ -7,21 +7,21 @@ export default {
 			const ok = await client.user.findUnique({
 				where: { username },
 			})
-			console.log(loggedInUser)
 			if (!ok) {
 				return {
 					ok: false,
 					error: "Can't unfollow user.",
 				}
 			}
-			await client.user.update({
+			console.log("ok", ok)
+			const temp = await client.user.update({
 				where: {
 					id: loggedInUser.id,
 				},
 				data: {
 					following: {
 						disconnect: {
-							username: ok.username,
+							id: ok.id,
 						},
 					},
 				},

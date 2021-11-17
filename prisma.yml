@@ -1,0 +1,6 @@
+endpoint: https://eu1.prisma.sh/saro-park-8b0e38/instaclone/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
